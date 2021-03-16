@@ -9,6 +9,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  CarouselController carouselController = CarouselController();
   final _imagePath = [
     'assets/images/img0.jpg',
     'assets/images/img1.jpg',
@@ -26,10 +27,8 @@ class _HomePageState extends State<HomePage> {
           children: [
             Container(
               height: 350,
-              decoration: BoxDecoration(
-                color: Colors.lime,
-              ),
               child: CarouselSlider(
+                carouselController: carouselController,
                 items: _imagePath.map((image) {
                   return Container(
                     margin: EdgeInsets.all(5),
@@ -62,12 +61,34 @@ class _HomePageState extends State<HomePage> {
               height: 10,
             ),
             Container(
-              child: Text(
-                "Carousel Example",
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      carouselController.previousPage(
+                        duration: Duration(milliseconds: 800),
+                        curve: Curves.decelerate,
+                      );
+                    },
+                    child: Icon(
+                      Icons.arrow_left,
+                      size: 30.0,
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      carouselController.nextPage(
+                        duration: Duration(milliseconds: 800),
+                        curve: Curves.decelerate,
+                      );
+                    },
+                    child: Icon(
+                      Icons.arrow_right,
+                      size: 30.0,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
